@@ -46,6 +46,7 @@
 
 #include "cotton.h"
 #include <sys/time.h>
+#include <cstring>
 
 // Solutions for different board sizes
 int solutions[16] =

@@ -10,10 +10,10 @@ CFLAGS = -Wall -g -c
 IFLAGS = -I$(INC)
 LFLAGS = -L$(LIB)
 
-all : $(BIN)/linkedlist
+all : $(BIN)/NQueens
   
-$(BIN)/nqueens : $(OBJ)/nqueens.o $(OBJ)/cotton-runtime.o
-	$(CC) $(OBJ)/cotton-runtime.o $(OBJ)/nqueens.o -o $(BIN)/nqueens -lpthread
+$(BIN)/NQueens : $(OBJ)/nqueens.o $(OBJ)/cotton-runtime.o
+	$(CC) $(OBJ)/cotton-runtime.o $(OBJ)/nqueens.o -o $(BIN)/NQueens -lpthread
 	
 $(OBJ)/cotton-runtime.o : $(SRC)/cotton-runtime.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) $(SRC)/cotton-runtime.cpp
@@ -24,5 +24,4 @@ $(OBJ)/nqueens.o : $(SRC)/nqueens.cpp
 	mv *.o $(OBJ)
 
 clean : 
-	rm -rf $(OBJ)/* $(LIB)/* $(BIN)/\
-    mkdir $(BIN)
+	rm -rf $(OBJ)/* $(LIB)/* $(BIN)/ ;mkdir $(BIN)
