@@ -9,6 +9,12 @@ namespace cotton{
         int index;
     }thread_key_data_t;
 
+    typedef struct _thread_deq_
+    {
+        int top;
+        void *deq;
+        int size;
+    }thread_deq_t;
 
     /*
        init_runtime();
@@ -20,8 +26,9 @@ namespace cotton{
      */
 
     pthread_t *threads;
-    pthread_mutex_t *mutex;
+    pthread_mutex_t *mutexlocks;
     thread_key_data_t *keysindex ;
+    thread_deq_t *deqs ;
     pthread_key_t *keys;
     volatile int finish_counter = 0;
     volatile bool shutdown = false;
@@ -30,20 +37,27 @@ namespace cotton{
     {
         int size = thread_pool_size();
         threads = new pthread_t[size - 1];
-        keysindex = new thread_key_data_t[size - 1];
-        keys = new pthread_key_t[size - 1];
-        pthread_mutex_t *mutexlocks = new pthread_mutex_t[size - 1];
+        keys = new pthread_key_t[size];
+        mutexlocks = new pthread_mutex_t[size];
+        keysindex = new thread_key_data_t[size];
+        deqs = new thread_deq_t[size];
 
         for(int i = 0; i<size - 1 ;i++)
         {
-            keysindex[i].index = i;
-        pthread_mutex_init(&mutexlocks[i], NULL);
             int status =  pthread_create(&threads[i],
                     NULL,
                     worker_routine,
                     &keysindex[i]
                     );
             //create thread and pass it to worker routine
+        }
+        for(int i = 0; i<size ;i++)
+        {
+            pthread_mutex_init(&mutexlocks[i], NULL);
+            keysindex[i].index = i;
+            deqs[i].deq = (void*)malloc(sizeof(task_size) * SIZE);
+            deq[i].size = SIZE;
+            deq[i].top = 0;
         }
     }
     void start_finish()
