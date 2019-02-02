@@ -6,7 +6,7 @@ MAKE =../make
 INC =../inc
 
 CC = g++
-CFLAGS = -Wall -g -c 
+CFLAGS = -Wall -g -c -Wunused-variable
 IFLAGS = -I$(INC)
 LFLAGS = -L$(LIB)
 
