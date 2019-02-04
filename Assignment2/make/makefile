@@ -12,6 +12,7 @@ all : $(BIN)/NQueens
   
 $(BIN)/NQueens : $(OBJ)/nqueens.o $(OBJ)/cotton-runtime.o
 	$(CC) $(OBJ)/cotton-runtime.o $(OBJ)/nqueens.o -o $(BIN)/NQueens -lpthread
+	export COTTON_WORKERS=1
 	
 $(OBJ)/cotton-runtime.o : $(SRC)/cotton-runtime.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) $(SRC)/cotton-runtime.cpp
