@@ -12,5 +12,10 @@ namespace cotton{
     void find_and_execute_task();
     void execute_task(void *task);
     int thread_pool_size();
+    int createthread(int index);
+    int threadjoin(int index);
+    int* getspecific();
+    void setspecific(int *value);
+    bool isempty(int indexi);
 
 }
