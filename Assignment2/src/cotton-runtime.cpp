@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#define DEQ_SIZE 500
+#define DEQ_SIZE 100
 
 namespace cotton{
 
@@ -54,6 +54,8 @@ namespace cotton{
         if ((threads_queues[index].front == 0 && threads_queues[index].front == DEQ_SIZE-1) || (threads_queues[index].rear == (threads_queues[index].front-1)%(DEQ_SIZE-1))) 
         { 
             printf("\nQueue is Full"); 
+	    freeall();
+	    abort();
             return; 
         } 
 
@@ -358,22 +360,9 @@ namespace cotton{
         int envsize =atoi(std::getenv("COTTON_WORKERS"));
         return (envsize>1)?envsize:1;
     }
-
-    /*
-    Finalize runtime:
-    for releasing all the resources aquired by all the threads
-       */
-    void finalize_runtime()
+    void freeall()
     {
-        //all	spinning	workers
-        //will	exit	worker_routine
-        shutdown=true;
-        int	size=thread_pool_size();
-        //	master	waits	for	helpers	to	join
-        for(int i= 0 ;	i<size - 1;	i++)
-        {
-            threadjoin(i);
-        }
+        int size=thread_pool_size();
         for (int i = 0; i < size; i++)
         {
             for(int j = 0; j < DEQ_SIZE;j++)
@@ -394,5 +383,23 @@ namespace cotton{
         delete mutexlocks;
         delete deqindex;
         delete threads_queues;
+    }
+
+    /*
+    Finalize runtime:
+    for releasing all the resources aquired by all the threads
+       */
+    void finalize_runtime()
+    {
+        //all	spinning	workers
+        //will	exit	worker_routine
+        shutdown=true;
+        int	size=thread_pool_size();
+        //	master	waits	for	helpers	to	join
+        for(int i= 0 ;	i<size - 1;	i++)
+        {
+            threadjoin(i);
+        }
+	freeall();
     }
 }

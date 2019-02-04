@@ -17,5 +17,5 @@ namespace cotton{
     int* getspecific();
     void setspecific(int *value);
     bool isempty(int indexi);
-
+    void freeall();
 }

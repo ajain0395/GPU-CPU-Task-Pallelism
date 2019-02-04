@@ -1,5 +1,4 @@
 BIN =../bin
-LIB =../lib
 SRC =../src
 OBJ =../obj
 MAKE =../make
@@ -8,7 +7,6 @@ INC =../inc
 CC = g++
 CFLAGS = -Wall -g -c 
 IFLAGS = -I$(INC)
-LFLAGS = -L$(LIB)
 
 all : $(BIN)/NQueens
   
@@ -24,4 +22,4 @@ $(OBJ)/nqueens.o : $(SRC)/nqueens.cpp
 	mv *.o $(OBJ)
 
 clean : 
-	rm -rf $(OBJ)/* $(LIB)/* $(BIN)/ ;mkdir $(BIN)
+	rm -rf $(OBJ)/ $(BIN)/ ;mkdir $(BIN) $(OBJ)
