@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#define DEQ_SIZE 30
+#define DEQ_SIZE 500
 
 namespace cotton{
 
@@ -20,6 +20,7 @@ namespace cotton{
         int rear;
     }thread_deq_t;
 
+
     /*
        init_runtime();
        start_finish();
@@ -34,11 +35,17 @@ namespace cotton{
     thread_data_t *deqindex ; // index of each thread for worker routine key deq mapping
     thread_deq_t *threads_queues ;//threads deques
     pthread_key_t key;//keys for for all thread specific index fetching
+    static pthread_once_t key_once = PTHREAD_ONCE_INIT;
     volatile int finish_counter = 0;//counter for task remaining in queues
     volatile bool shutdown = false; // flag for worker routines polling enable/disable
 
+    static void make_key()
+    {
+        (void) pthread_key_create(&key, NULL);
+    }
     void insert_into_deq(int index, void *value)
     {
+        lock_deq(index);
             if ((threads_queues[index].front == 0 && threads_queues[index].front == DEQ_SIZE-1) || (threads_queues[index].rear == (threads_queues[index].front-1)%(DEQ_SIZE-1))) 
             { 
                 printf("\nQueue is Full"); 
@@ -63,6 +70,7 @@ namespace cotton{
                 threads_queues[index].deq[threads_queues[index].rear] = value; 
             } 
 
+        unlock_deq(index);
     }
     void *steal_from_deq(int index)
     {
@@ -128,6 +136,8 @@ namespace cotton{
         deqindex = new thread_data_t[size];
         threads_queues = new thread_deq_t[size]; // allocating memory to queues for threads including main thread
 
+        (void) pthread_once(&key_once, make_key);
+        
         for(int i = 0; i<size ;i++)
         {
             pthread_mutex_init(&mutexlocks[i], NULL);
@@ -138,30 +148,37 @@ namespace cotton{
         }
         for(int i = 0; i<size - 1 ;i++)
         {
-            int status =  pthread_create(&threads[i],
+            pthread_create(&threads[i],
                     NULL,
                     worker_routine,
                     &deqindex[i]
                     );
             //create thread and pass it to worker routine
         }
+        if (pthread_getspecific(key) == NULL)
+        {
+        int *val = (int*)malloc(sizeof(int));
+        *val = size -1;
+        (void) pthread_setspecific(key, val);
+        }
     }
     void start_finish()
     {
         finish_counter=0;//reset
     }
-    void async(std::function<void()> lambda) //accepts a C++11 lambda function
+    void async(std::function<void()> &&lambda) //accepts a C++11 lambda function
     {
-        lock_deq(0);
+        int *getvalue = (int*)pthread_getspecific(key);
+        int index = *getvalue;
+        lock_finish();
         finish_counter++;//concurrent access
-        unlock_deq(0);
+        unlock_finish();
         //task size retrieval
         int task_size = sizeof(lambda);
         //copy	task	on	heap
         void *p =(void*)malloc(task_size);
         memcpy(p,&lambda,task_size);
         //thread-safe	push_task_to_runtime
-        int index = 0;
         //index of shelf
         push_task_to_runtime(p,index);
         return;
@@ -186,12 +203,13 @@ namespace cotton{
         //thread_key_data_t *data = (thread_key_data_t *)indexdata;
 
         thread_data_t *data = (thread_data_t*)indexdata;
-        if (pthread_getspecific(key) == NULL) {
+        if (pthread_getspecific(key) == NULL) 
+        {
             int *val;
             val = (int*)malloc(sizeof(int));
             *val = data->index;
-        (void) pthread_setspecific(key, val);
-    }
+            (void) pthread_setspecific(key, val);
+        }
         while(!shutdown)
         {
             find_and_execute_task();
@@ -220,7 +238,7 @@ namespace cotton{
                 int randomindex;
                 do
                 {
-                    randomindex = rand() % DEQ_SIZE;
+                    randomindex = rand() % thread_pool_size();
                 }while(randomindex == indexi);
                 if(!isempty(randomindex))
                 {
@@ -252,7 +270,7 @@ namespace cotton{
     void find_and_execute_task()
     {
         //grab_from_runtime	is	thread-safe
-        void (*task)(void);
+        void *task;
         task=grab_task_from_runtime();
         if(task	!=	NULL)
         {
@@ -263,13 +281,18 @@ namespace cotton{
             unlock_finish();
         }
     }
-    void execute_task(void (*task)(void))
+    typedef void sigrout_t();
+    void execute_task(void *task)
     {
-        task();
+        (*(std::function<void()> *)task) ();
+        
+     //   *((sigrout_t*) task) ();
+        //  task();
     }
     int thread_pool_size()
     {
-       return atoi(std::getenv("COTTON_WORKERS"))>1?atoi(std::getenv("COTTON_WORKERS")):1;
+        int envsize =atoi(std::getenv("COTTON_WORKERS"));
+       return (envsize>1)?envsize:1;
     }
     void finalize_runtime()
     {
