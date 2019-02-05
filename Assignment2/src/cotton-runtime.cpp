@@ -387,7 +387,7 @@ namespace cotton{
 
     /*
     Finalize runtime:
-    for releasing all the resources aquired by all the threads
+    for releasing all the resources aquired by all the threads and wait for threads to finish their routine
        */
     void finalize_runtime()
     {
