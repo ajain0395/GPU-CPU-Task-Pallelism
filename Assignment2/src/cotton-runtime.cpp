@@ -1,3 +1,5 @@
+////volatile front rear 
+///push remove lock
 #include "cotton-runtime.h"
 #include <cstring>
 #include <iostream>
@@ -16,9 +18,9 @@ namespace cotton{
 
     typedef struct _thread_deq_
     {
-        int front;
+       volatile int front;
         void **deq;
-        int rear;
+       volatile int rear;
     }thread_deq_t;
 
 
@@ -73,8 +75,8 @@ namespace cotton{
 
         else
         { 
+            threads_queues[index].deq[threads_queues[index].rear + 1] = value; 
             threads_queues[index].rear++; 
-            threads_queues[index].deq[threads_queues[index].rear] = value; 
         } 
 
         unlock_deq(index);
