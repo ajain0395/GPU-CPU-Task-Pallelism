@@ -6,7 +6,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#define DEQ_SIZE 100
+#define DEQ_SIZE 10000
 
 namespace cotton{
 
@@ -52,8 +52,8 @@ namespace cotton{
        */
     void insert_into_deq(int index, void *value)
     {
-        lock_deq(index);
-        if ((threads_queues[index].front == 0 && threads_queues[index].front == DEQ_SIZE-1) || (threads_queues[index].rear == (threads_queues[index].front-1)%(DEQ_SIZE-1))) 
+       // lock_deq(index);
+        if ((threads_queues[index].rear == DEQ_SIZE-1)) 
         { 
             printf("\nQueue is Full"); 
 	    freeall();
@@ -62,24 +62,23 @@ namespace cotton{
         } 
 
         else if (threads_queues[index].front == -1) /* Insert First Element */
-        { 
-            threads_queues[index].front = threads_queues[index].rear = 0; 
-            threads_queues[index].deq[threads_queues[index].rear] = value; 
+        {
+            threads_queues[index].deq[0] = value;
+            threads_queues[index].front = threads_queues[index].rear = 0;
         } 
-
+/*
         else if (threads_queues[index].rear == DEQ_SIZE-1 && threads_queues[index].front != 0) 
         { 
             threads_queues[index].rear = 0; 
             threads_queues[index].deq[threads_queues[index].rear] = value;
         } 
-
+*/
         else
         { 
-            threads_queues[index].deq[threads_queues[index].rear + 1] = value; 
+            threads_queues[index].deq[threads_queues[index].rear + 1] = value;
             threads_queues[index].rear++; 
-        } 
-
-        unlock_deq(index);
+        }
+       // unlock_deq(index);
     }
     /*
        steal from deq:
@@ -93,23 +92,23 @@ namespace cotton{
             printf("\nQueue of thread[%d] is Empty", index);
             unlock_deq(index);
             return NULL; 
-        } 
+        }
 
         void *data = threads_queues[index].deq[threads_queues[index].front]; 
         threads_queues[index].deq[threads_queues[index].front] = NULL; 
-        if (threads_queues[index].front == threads_queues[index].rear) 
+    /*    if (threads_queues[index].front == threads_queues[index].rear) 
         { 
             threads_queues[index].front = -1; 
             threads_queues[index].rear = -1; 
         } 
         else if (threads_queues[index].front == DEQ_SIZE-1) 
             threads_queues[index].front = 0; 
-        else
-            threads_queues[index].front++; 
+        else*/
+
+        threads_queues[index].front++; 
 
         unlock_deq(index);
         return data; 
-
     }
     /*
        pop from deq:
@@ -132,8 +131,10 @@ namespace cotton{
             threads_queues[index].front = -1;
             threads_queues[index].rear = -1; 
         } 
+        /*
         else if (threads_queues[index].rear == 0) 
             threads_queues[index].rear = DEQ_SIZE - 1; 
+        */
         else
             threads_queues[index].rear--;
 
@@ -274,7 +275,7 @@ namespace cotton{
        */
     bool isempty(int indexi)
     {
-        if(threads_queues[indexi].front == -1)
+        if(threads_queues[indexi].front == -1 || threads_queues[indexi].front > threads_queues[indexi].rear)
         {
             return true;
         }
