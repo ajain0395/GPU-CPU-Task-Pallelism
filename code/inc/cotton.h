@@ -1,3 +1,6 @@
+#ifndef __cotton_h__
+#define __cotton_h__
+#endif
 #include<functional>
 namespace cotton{
 

@@ -1,3 +1,6 @@
+#ifndef __cotton_runtime_h__
+#define __cotton_runtime_h__
+#endif
 #include "cotton.h"
 
 namespace cotton{
