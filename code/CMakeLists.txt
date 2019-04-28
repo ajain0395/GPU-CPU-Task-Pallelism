@@ -11,4 +11,5 @@ add_executable(code
         inc/wrapperinterface.h
         src/cotton-runtime.cpp
         src/nqueens.cpp
+        src/matrix.cpp
         src/wrapper.cpp tmp/tmp2.cpp tmp/tmp3.cpp)

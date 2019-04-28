@@ -1,4 +1,16 @@
 /home/ashish/Downloads/Persepolis/Compressed/CLion-2019.1.2/clion-2019.1.2/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ashish/repos/fpp-project/code
 -- Configuring done
--- Generating done
+CMake Error at CMakeLists.txt:8 (add_executable):
+  Cannot find source file:
+
+    tmp/tmp2.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
+  .hpp .hxx .in .txx
+
+
+CMake Error at CMakeLists.txt:8 (add_executable):
+  No SOURCES given to target: code
+
+
 -- Build files have been written to: /home/ashish/repos/fpp-project/code/cmake-build-debug

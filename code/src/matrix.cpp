@@ -74,16 +74,17 @@ void gpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
 
 void rowwise( float* matrixA,   float* vectorB,  float* resultVector, int row,int col,int index)
 {
+    int index2 = (index * col);
+    float value = 0;
 
-    int newindex = index * col;
     for(int j = 0;j < col;j++)
     {
-        float value = 0;
+        value = 0;
         for (int k = 0; k < row;k++)
         {
-            value += (matrixA[newindex + k] * vectorB[(k * row) + j]);
+            value += (matrixA[index2 + k] * vectorB[(k * row) + j]);
         }
-        resultVector[newindex + j] = value;
+        resultVector[index2 + j] = value;
     }
 }
 
@@ -92,11 +93,25 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
     int rowi = (int)(ROW * offload);
     for (int i = rowi; i < ROW;i++)
     {
-     //   cotton::async([=]() {
-            rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
-     //   });
-    }
 
+      //  cotton::async([=]() {
+        //    rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
+      //  });
+
+   //   cotton::async([=](){
+          int index2 = (i * COL);
+          float value = 0;
+          for(int j = 0;j < COL;j++)
+          {
+              value = 0;
+              for (int k = 0; k < ROW;k++)
+              {
+                  value += (AMAT[index2 + k] * BMAT[(k * ROW) + j]);
+              }
+              CMAT[index2 + j] = value;
+          }
+     // });
+    }
 }
 void mydelete(float *ptr)
 {
@@ -155,26 +170,28 @@ int main( int argc, char** argv ) {
         cotton::start_finish();
 
         cotton::async([=]() {
-            cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha);
+            gpukernel(AMAT, BMAT, CMATGPU, ROW, COL, alpha);
 
         });
+      //  cotton::async([=]() {
+            cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha);
+       // });
 
-        gpukernel(AMAT, BMAT, CMATGPU, ROW, COL, alpha);
         cotton::end_finish();
 
         // Verify the result
         bool result=true;
         for (int i=0; i<ROW*COL; i++) {
 
-            if (i < (int)alpha * ROW  ) {
-                printf(" %f ",CMATGPU[i]);
+            if (i / COL < (int)(alpha * ROW ) ) {
+                printf(" G [%f] ",CMATGPU[i]);
                 if(CMATGPU[i] != ROW)
                  result = false;
                 //break;
 
             }
-            if (i > (int)alpha * ROW ) {
-                printf(" %f ", CMATCPU[i]);
+            if (i / COL > (int)(alpha * ROW) ) {
+                printf(" C : [%f] ", CMATCPU[i]);
                 if (CMATCPU[i] != ROW)
                     result = false;
             }
@@ -184,6 +201,16 @@ int main( int argc, char** argv ) {
                 }
 
         }
+        std::cout<<"\n";
+        for(int i = 0; i < ROW*COL;i++)
+        {
+            std::cout<<" "<<CMATCPU[i];
+        }
+        std::cout<<"\n";
+        for(int i = 0; i < ROW*COL;i++)
+        {
+            std::cout<<" "<<CMATGPU[i];
+        }
         if (result)
             std::cout<< "Success!\n";
         else
@@ -192,7 +219,7 @@ int main( int argc, char** argv ) {
     }
     catch(cl::Error err) {
         std::cout << "Error: " << err.what() << "(" << err.err() << ")" << std::endl;
-        return( EXIT_FAILURE );
+//        return( EXIT_FAILURE );
 
 
     }
@@ -203,5 +230,6 @@ int main( int argc, char** argv ) {
     mydelete(CMATGPU);
     std::cout << "Done.\n";
     cotton::finalize_runtime();
+
     return( EXIT_SUCCESS );
 }
