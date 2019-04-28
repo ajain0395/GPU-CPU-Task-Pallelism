@@ -11,13 +11,13 @@ namespace wrapperinterface
        task will be distributed from global_task_deq
      */
 
-    void *edp(float energy, float time)//objective function energy delay product
+    int edp(float energy, float time)//objective function energy delay product
     {
-        return e * t;
+        return energy * time;
     }
-    void *edpp(float energy, float time)//objective function energy delay product square
+    int edpp(float energy, float time)//objective function energy delay product square
     {
-        return e * t * t;
+        return energy * time * time;
     }
     void *onlineprofiling(void *ptr)//accepts parameter i.e pointer to funtion to be profiled
     {
@@ -124,12 +124,12 @@ namespace wrapperinterface
 
         return result;
     }
-    void *getalpha(void *ptr,void *table)//return alpha if already exist for a given function
+    float *getalpha(void *ptr,void *table)//return alpha if already exist for a given function
     {
         int result = check_alpha(ptr,table);
         if(result != NOT_FOUND)
         {
-            return &table->alpha[result];
+            return &(table->alpha[result]);
         }
         else
         {
