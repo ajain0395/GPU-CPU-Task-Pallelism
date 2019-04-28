@@ -98,10 +98,19 @@
 		<Unit filename="/home/ashish/repos/fpp-project/code/src/cotton-runtime.cpp">
 			<Option target="code"/>
 		</Unit>
+		<Unit filename="/home/ashish/repos/fpp-project/code/src/matrixmul.cpp">
+			<Option target="code"/>
+		</Unit>
 		<Unit filename="/home/ashish/repos/fpp-project/code/src/nqueens.cpp">
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="/home/ashish/repos/fpp-project/code/src/wrapper.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/home/ashish/repos/fpp-project/code/tmp/tmp2.cpp">
+			<Option target="code"/>
+		</Unit>
+		<Unit filename="/home/ashish/repos/fpp-project/code/tmp/tmp3.cpp">
 			<Option target="code"/>
 		</Unit>
 		<Unit filename="/home/ashish/repos/fpp-project/code/CMakeLists.txt">

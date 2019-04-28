@@ -96,11 +96,53 @@ CMakeFiles/code.dir/src/wrapper.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/wrapper.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ashish/repos/fpp-project/code/src/wrapper.cpp -o CMakeFiles/code.dir/src/wrapper.cpp.s
 
+CMakeFiles/code.dir/src/matrixmul.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/src/matrixmul.cpp.o: ../src/matrixmul.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ashish/repos/fpp-project/code/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/code.dir/src/matrixmul.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/src/matrixmul.cpp.o -c /home/ashish/repos/fpp-project/code/src/matrixmul.cpp
+
+CMakeFiles/code.dir/src/matrixmul.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/src/matrixmul.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ashish/repos/fpp-project/code/src/matrixmul.cpp > CMakeFiles/code.dir/src/matrixmul.cpp.i
+
+CMakeFiles/code.dir/src/matrixmul.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/src/matrixmul.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ashish/repos/fpp-project/code/src/matrixmul.cpp -o CMakeFiles/code.dir/src/matrixmul.cpp.s
+
+CMakeFiles/code.dir/tmp/tmp2.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/tmp/tmp2.cpp.o: ../tmp/tmp2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ashish/repos/fpp-project/code/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/code.dir/tmp/tmp2.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/tmp/tmp2.cpp.o -c /home/ashish/repos/fpp-project/code/tmp/tmp2.cpp
+
+CMakeFiles/code.dir/tmp/tmp2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/tmp/tmp2.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ashish/repos/fpp-project/code/tmp/tmp2.cpp > CMakeFiles/code.dir/tmp/tmp2.cpp.i
+
+CMakeFiles/code.dir/tmp/tmp2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/tmp/tmp2.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ashish/repos/fpp-project/code/tmp/tmp2.cpp -o CMakeFiles/code.dir/tmp/tmp2.cpp.s
+
+CMakeFiles/code.dir/tmp/tmp3.cpp.o: CMakeFiles/code.dir/flags.make
+CMakeFiles/code.dir/tmp/tmp3.cpp.o: ../tmp/tmp3.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ashish/repos/fpp-project/code/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/code.dir/tmp/tmp3.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/code.dir/tmp/tmp3.cpp.o -c /home/ashish/repos/fpp-project/code/tmp/tmp3.cpp
+
+CMakeFiles/code.dir/tmp/tmp3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/code.dir/tmp/tmp3.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ashish/repos/fpp-project/code/tmp/tmp3.cpp > CMakeFiles/code.dir/tmp/tmp3.cpp.i
+
+CMakeFiles/code.dir/tmp/tmp3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/code.dir/tmp/tmp3.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ashish/repos/fpp-project/code/tmp/tmp3.cpp -o CMakeFiles/code.dir/tmp/tmp3.cpp.s
+
 # Object files for target code
 code_OBJECTS = \
 "CMakeFiles/code.dir/src/cotton-runtime.cpp.o" \
 "CMakeFiles/code.dir/src/nqueens.cpp.o" \
-"CMakeFiles/code.dir/src/wrapper.cpp.o"
+"CMakeFiles/code.dir/src/wrapper.cpp.o" \
+"CMakeFiles/code.dir/src/matrixmul.cpp.o" \
+"CMakeFiles/code.dir/tmp/tmp2.cpp.o" \
+"CMakeFiles/code.dir/tmp/tmp3.cpp.o"
 
 # External object files for target code
 code_EXTERNAL_OBJECTS =
@@ -108,9 +150,12 @@ code_EXTERNAL_OBJECTS =
 code: CMakeFiles/code.dir/src/cotton-runtime.cpp.o
 code: CMakeFiles/code.dir/src/nqueens.cpp.o
 code: CMakeFiles/code.dir/src/wrapper.cpp.o
+code: CMakeFiles/code.dir/src/matrixmul.cpp.o
+code: CMakeFiles/code.dir/tmp/tmp2.cpp.o
+code: CMakeFiles/code.dir/tmp/tmp3.cpp.o
 code: CMakeFiles/code.dir/build.make
 code: CMakeFiles/code.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ashish/repos/fpp-project/code/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable code"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ashish/repos/fpp-project/code/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable code"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/code.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -150,6 +150,33 @@ src/cotton-runtime.cpp.s:
 	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/cotton-runtime.cpp.s
 .PHONY : src/cotton-runtime.cpp.s
 
+src/matrixmul.o: src/matrixmul.cpp.o
+
+.PHONY : src/matrixmul.o
+
+# target to build an object file
+src/matrixmul.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/matrixmul.cpp.o
+.PHONY : src/matrixmul.cpp.o
+
+src/matrixmul.i: src/matrixmul.cpp.i
+
+.PHONY : src/matrixmul.i
+
+# target to preprocess a source file
+src/matrixmul.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/matrixmul.cpp.i
+.PHONY : src/matrixmul.cpp.i
+
+src/matrixmul.s: src/matrixmul.cpp.s
+
+.PHONY : src/matrixmul.s
+
+# target to generate assembly for a file
+src/matrixmul.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/matrixmul.cpp.s
+.PHONY : src/matrixmul.cpp.s
+
 src/nqueens.o: src/nqueens.cpp.o
 
 .PHONY : src/nqueens.o
@@ -204,6 +231,60 @@ src/wrapper.cpp.s:
 	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/src/wrapper.cpp.s
 .PHONY : src/wrapper.cpp.s
 
+tmp/tmp2.o: tmp/tmp2.cpp.o
+
+.PHONY : tmp/tmp2.o
+
+# target to build an object file
+tmp/tmp2.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp2.cpp.o
+.PHONY : tmp/tmp2.cpp.o
+
+tmp/tmp2.i: tmp/tmp2.cpp.i
+
+.PHONY : tmp/tmp2.i
+
+# target to preprocess a source file
+tmp/tmp2.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp2.cpp.i
+.PHONY : tmp/tmp2.cpp.i
+
+tmp/tmp2.s: tmp/tmp2.cpp.s
+
+.PHONY : tmp/tmp2.s
+
+# target to generate assembly for a file
+tmp/tmp2.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp2.cpp.s
+.PHONY : tmp/tmp2.cpp.s
+
+tmp/tmp3.o: tmp/tmp3.cpp.o
+
+.PHONY : tmp/tmp3.o
+
+# target to build an object file
+tmp/tmp3.cpp.o:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp3.cpp.o
+.PHONY : tmp/tmp3.cpp.o
+
+tmp/tmp3.i: tmp/tmp3.cpp.i
+
+.PHONY : tmp/tmp3.i
+
+# target to preprocess a source file
+tmp/tmp3.cpp.i:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp3.cpp.i
+.PHONY : tmp/tmp3.cpp.i
+
+tmp/tmp3.s: tmp/tmp3.cpp.s
+
+.PHONY : tmp/tmp3.s
+
+# target to generate assembly for a file
+tmp/tmp3.cpp.s:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/tmp/tmp3.cpp.s
+.PHONY : tmp/tmp3.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -216,12 +297,21 @@ help:
 	@echo "... src/cotton-runtime.o"
 	@echo "... src/cotton-runtime.i"
 	@echo "... src/cotton-runtime.s"
+	@echo "... src/matrixmul.o"
+	@echo "... src/matrixmul.i"
+	@echo "... src/matrixmul.s"
 	@echo "... src/nqueens.o"
 	@echo "... src/nqueens.i"
 	@echo "... src/nqueens.s"
 	@echo "... src/wrapper.o"
 	@echo "... src/wrapper.i"
 	@echo "... src/wrapper.s"
+	@echo "... tmp/tmp2.o"
+	@echo "... tmp/tmp2.i"
+	@echo "... tmp/tmp2.s"
+	@echo "... tmp/tmp3.o"
+	@echo "... tmp/tmp3.i"
+	@echo "... tmp/tmp3.s"
 .PHONY : help
 
 
