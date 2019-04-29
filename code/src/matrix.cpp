@@ -10,7 +10,7 @@
 
 #include <CL/cl.hpp>
 
-
+float* CMATCPU = NULL;
 void gpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offload)
 {
     unsigned int platform_id=0, device_id=0;
@@ -98,7 +98,7 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
         //    rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
       //  });
 
-   //   cotton::async([=](){
+     cotton::async([=](){
           int index2 = (i * COL);
           float value = 0;
           for(int j = 0;j < COL;j++)
@@ -108,9 +108,9 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
               {
                   value += (AMAT[index2 + k] * BMAT[(k * ROW) + j]);
               }
-              CMAT[index2 + j] = value;
+              CMATCPU[index2 + j] = value;
           }
-     // });
+      });
     }
 }
 void mydelete(float *ptr)
@@ -155,8 +155,8 @@ int main( int argc, char** argv ) {
     printf("alpha: %f\n",alpha);
     float* AMAT = NULL;
     float* BMAT = NULL;
-    float* CMATCPU = new float[ROW*COL];
-    float* CMATGPU = new float[ROW*COL];
+
+    float* CMATGPU = NULL;
     try{
 
         AMAT = new float[ROW*COL];
