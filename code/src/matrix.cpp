@@ -91,7 +91,7 @@ void rowwise( float* matrixA,   float* vectorB,  float* resultVector, int row,in
 {
     int index2 = (index * col);
     float value = 0;
-    std::cout<<" rowwise async"<<std::endl<<col<<" COL "<< row<<" ROW";
+ //   std::cout<<" rowwise async"<<std::endl<<col<<" COL "<< row<<" ROW";
 
     for(int j = 0;j < col;j++)
     {
@@ -137,9 +137,9 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
 //        matdata->C = CMAT;
 //        matdata->index = i;
 
-     // cotton::async([=]() {
+      cotton::async([=]() {
             rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
-     //   });
+        });
 
 //     cotton::async([=](){
 ////            std::cout<<"In CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
@@ -209,7 +209,7 @@ int main( int argc, char** argv ) {
     {
         alpha = (float)atoi(argv[1])/10.0;
     }
-    printf("alpha: %f\n",alpha);
+ //   printf("alpha: %f\n",alpha);
     float* AMAT = NULL;
     float* BMAT = NULL;
 
@@ -229,8 +229,6 @@ int main( int argc, char** argv ) {
         cotton::async([=]() {
     //        std::cout<<"BeforeIN GPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
             gpukernel(AMAT, BMAT, CMATGPU, ROW, COL, alpha);
-
-
         });
       //  std::cout<<"Before CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
        // cotton::async([=]() {
@@ -240,7 +238,6 @@ int main( int argc, char** argv ) {
        // });
         long start = get_usecs();
         cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha);
-
         cotton::end_finish();
 
         long end = get_usecs();

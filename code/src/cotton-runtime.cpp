@@ -95,9 +95,10 @@ namespace cotton{
             unlock_deq(index);
             return NULL; 
         }
+
+        void *data = threads_queues[index].deq[threads_queues[index].front];
+        threads_queues[index].deq[threads_queues[index].front] = NULL;
         threads_queues[index].front++;
-        void *data = threads_queues[index].deq[threads_queues[index].front -1];
-        threads_queues[index].deq[threads_queues[index].front - 1] = NULL;
     /*    if (threads_queues[index].front == threads_queues[index].rear) 
         { 
             threads_queues[index].front = -1; 
@@ -124,21 +125,24 @@ namespace cotton{
             printf("\nQueue of thread[%d] is Empty", index);//if deq is empty message
             unlock_deq(index);
             return NULL; 
-        } 
+        }
 
-        void *data = threads_queues[index].deq[threads_queues[index].rear]; 
-        threads_queues[index].deq[threads_queues[index].rear] = NULL; 
-        if (threads_queues[index].front == threads_queues[index].rear)
+
+        void *data = threads_queues[index].deq[threads_queues[index].rear ];
+        threads_queues[index].deq[threads_queues[index].rear] = NULL;
+       if (threads_queues[index].front == threads_queues[index].rear)
         { 
             threads_queues[index].front = -1;
             threads_queues[index].rear = -1; 
-        } 
+        }
+
         /*
         else if (threads_queues[index].rear == 0) 
             threads_queues[index].rear = DEQ_SIZE - 1; 
         */
+
         else
-            threads_queues[index].rear--;
+           threads_queues[index].rear--;
 
         unlock_deq(index);
         return data; 
@@ -222,11 +226,15 @@ namespace cotton{
         unlock_finish();
         //task size retrieval
         //int task_size = sizeof(lambda);
-        int task_size = sizeof(std::function<void()>);
+      //  int task_size = sizeof(std::function<void()>);
         //copy	task	on	heap
-       // void *p =(void*)malloc(task_size);
-        void *p = (void*)malloc(sizeof( std::function<void()> &&));
-        memcpy(p,&lambda,task_size);
+
+        //std::function<void()> *copy_lambda =
+        void *p = (void *)new std::function<void()>(lambda);;
+
+        //void *p =(void*)new std::function<void()>;
+        //void *p = (void*)malloc(sizeof( std::function<void()>));
+      //  memcpy(p,&lambda,task_size);
         //thread-safe	push_task_to_runtime
         //index of shelf
         push_task_to_runtime(p,index);
@@ -359,8 +367,8 @@ namespace cotton{
         {
             execute_task(task);
             //free(task);
-            //delete task;
-            //task = NULL;
+            delete task;
+            task = NULL;
             lock_finish();
             finish_counter--;
             unlock_finish();
