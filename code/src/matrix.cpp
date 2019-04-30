@@ -65,7 +65,7 @@ void gpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
 
     // Execute the kernel
     cl::NDRange global( (int)(ROW  * offload));
-    std::cout<<(int)(ROW  * offload)<<" OFFLOAD\n";
+ //   std::cout<<(int)(ROW  * offload)<<" OFFLOAD\n";
 //        cl::NDRange local( 256 );
     cl::Event evt;
     queue.enqueueNDRangeKernel(vecadd_kernel, cl::NullRange, global,cl::NullRange,NULL,&evt);
@@ -131,36 +131,12 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
 
     for (int i = (int)(ROW * offload); i < ROW;i++)
     {
-//        mat_data_t *matdata = new mat_data_t;
-//        matdata->A = AMAT;
-//        matdata->B = BMAT;
-//        matdata->C = CMAT;
-//        matdata->index = i;
 
       cotton::async([=]() {
             rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
         });
-
-//     cotton::async([=](){
-////            std::cout<<"In CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
-//        std::cout<<"in add: "<<AMAT<<std::endl;
-//
-//          int index2 = (i * COL);
-//          float value = 0;
-//          for(int j = 0;j < COL;j++)
-//          {
-//              value = 0;
-//              for (int k = 0; k < ROW;k++)
-//              {
-//                  value += (AMAT[index2 + k] * BMAT[(k * ROW) + j]);
-//              }
-//              CMATCPU[index2 + j] = value;
-//              std::cout<<"Val: "<<value<<std::endl;
-////              std::cout<<"Hello ["<<index2 + j<<"]: "<<CMATCPU[index2 + j]<<"\n";
-//          }
-//
-//      });
     }
+    if()
 }
 void mydelete(float *ptr)
 {
@@ -230,16 +206,10 @@ int main( int argc, char** argv ) {
     //        std::cout<<"BeforeIN GPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
             gpukernel(AMAT, BMAT, CMATGPU, ROW, COL, alpha);
         });
-      //  std::cout<<"Before CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
-       // cotton::async([=]() {
 
-     // std::cout<<"BeforeIN CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
-
-       // });
         long start = get_usecs();
         cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha);
         cotton::end_finish();
-
         long end = get_usecs();
         float dur = ((double)(end-start))/1000000;
         printf("CPU TIME(%f) Time = %f Sec\n",alpha,dur);
@@ -267,7 +237,7 @@ int main( int argc, char** argv ) {
                 }
                 */
         }
-        std::cout<<"\n";
+   /*     std::cout<<"\n";
         for(int i = 0; i < ROW*COL;i++)
         {
             std::cout<<" "<<CMATCPU[i];
@@ -277,6 +247,7 @@ int main( int argc, char** argv ) {
         {
             std::cout<<" "<<CMATGPU[i];
         }
+        */
         if (result)
             std::cout<< "Success!\n";
         else

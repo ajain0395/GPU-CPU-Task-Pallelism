@@ -91,7 +91,7 @@ namespace cotton{
         lock_deq(index);
         if (isempty(index)) 
         { 
-            printf("\nQueue of thread[%d] is Empty", index);
+     //       printf("\nQueue of thread[%d] is Empty", index);
             unlock_deq(index);
             return NULL; 
         }
@@ -122,7 +122,7 @@ namespace cotton{
         lock_deq(index);//lock thread deq from access
         if (isempty(index))
         { 
-            printf("\nQueue of thread[%d] is Empty", index);//if deq is empty message
+       //     printf("\nQueue of thread[%d] is Empty", index);//if deq is empty message
             unlock_deq(index);
             return NULL; 
         }

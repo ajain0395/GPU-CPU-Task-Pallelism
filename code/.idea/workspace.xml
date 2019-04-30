@@ -12,10 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f164b6d-3cbe-47a8-94f5-08443af4ddd5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/inc/cotton.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/cotton.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cotton-runtime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cotton-runtime.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/matrix.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/matrix.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mymatrixkernel.cl" beforeDir="false" afterPath="$PROJECT_DIR$/src/mymatrixkernel.cl" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/matrix.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="93" column="1" lean-forward="true" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+            <state relative-caret-position="2277">
+              <caret line="195" column="28" lean-forward="true" selection-start-line="195" selection-start-column="28" selection-end-line="195" selection-end-column="28" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -52,34 +50,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tmp2.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3732">
-              <caret line="291" column="1" selection-start-line="291" selection-start-column="1" selection-end-line="291" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cotton-runtime.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="98" column="74" lean-forward="true" selection-start-line="98" selection-start-column="74" selection-end-line="98" selection-end-column="74" />
+            <state relative-caret-position="1395">
+              <caret line="93" column="7" selection-start-line="93" selection-start-column="7" selection-end-line="93" selection-end-column="7" />
               <folding>
                 <element signature="e#45#72#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/inc/cotton.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -122,8 +99,9 @@
       <find>queue</find>
       <find>atomic</find>
       <find>float</find>
-      <find>myEvent</find>
       <find>async</find>
+      <find>myEvent</find>
+      <find>offload</find>
     </findStrings>
     <replaceStrings>
       <replace>k</replace>
@@ -154,8 +132,8 @@
         <option value="$PROJECT_DIR$/src/tmp2.cpp" />
         <option value="$PROJECT_DIR$/src/mymatrixkernel.cl" />
         <option value="$PROJECT_DIR$/inc/cotton.h" />
-        <option value="$PROJECT_DIR$/src/matrix.cpp" />
         <option value="$PROJECT_DIR$/src/cotton-runtime.cpp" />
+        <option value="$PROJECT_DIR$/src/matrix.cpp" />
       </list>
     </option>
   </component>
@@ -245,12 +223,12 @@
       <updated>1556435476704</updated>
       <workItem from="1556435478318" duration="5605000" />
       <workItem from="1556442898657" duration="28114000" />
-      <workItem from="1556487878213" duration="30319000" />
+      <workItem from="1556487878213" duration="32167000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64038000" />
+    <option name="totallyTimeSpent" value="65886000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1533" height="875" extended-state="6" />
@@ -336,6 +314,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/inc/cotton.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tmp2.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3732">
@@ -353,29 +338,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/inc/cotton.h">
+    <entry file="file://$PROJECT_DIR$/src/cotton-runtime.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="1395">
+          <caret line="93" column="7" selection-start-line="93" selection-start-column="7" selection-end-line="93" selection-end-column="7" />
+          <folding>
+            <element signature="e#45#72#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/matrix.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="93" column="1" lean-forward="true" selection-start-line="93" selection-start-column="1" selection-end-line="93" selection-end-column="1" />
+        <state relative-caret-position="2277">
+          <caret line="195" column="28" lean-forward="true" selection-start-line="195" selection-start-column="28" selection-end-line="195" selection-end-column="28" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cotton-runtime.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="98" column="74" lean-forward="true" selection-start-line="98" selection-start-column="74" selection-end-line="98" selection-end-column="74" />
-          <folding>
-            <element signature="e#45#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
