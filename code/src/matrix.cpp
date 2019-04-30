@@ -136,7 +136,6 @@ void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
             rowwise(AMAT, BMAT, CMAT, ROW, COL, i);
         });
     }
-    if()
 }
 void mydelete(float *ptr)
 {

@@ -149,6 +149,16 @@ namespace cotton{
 
     }
 
+    int bind_thread_to_core(int worker_id) {
+        int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
+        int core_id = worker_id % num_cores;
+        cpu_set_t cpuset;
+        CPU_ZERO(&cpuset);
+        CPU_SET(core_id, &cpuset);
+        pthread_t current_thread = pthread_self();
+        return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
+    }
+
     /*
        init runtime:
        Initialize runtime and associated resources
@@ -181,6 +191,7 @@ namespace cotton{
             int *val = (int*)malloc(sizeof(int));
             *val = size -1;
             setspecific(val);//set thread specific data to key
+            bind_thread_to_core(size - 1);
         }
     }
 
@@ -256,15 +267,7 @@ namespace cotton{
     }
 
 
-    int bind_thread_to_core(int worker_id) {
-        int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
-        int core_id = worker_id % num_cores;
-        cpu_set_t cpuset;
-        CPU_ZERO(&cpuset);
-        CPU_SET(core_id, &cpuset);
-        pthread_t current_thread = pthread_self();
-        return pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
-    }
+
     /*
        worker routine:
        task to be performed by every thread
