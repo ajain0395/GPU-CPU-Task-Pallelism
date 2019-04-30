@@ -10,10 +10,7 @@
 #define __CL_ENABLE_EXCEPTIONS
 
 #include <CL/cl.hpp>
-//#include"hclib_cpp.h"
 
-float* CMATCPU = NULL;
-volatile int *atomic;
 void gpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offload)
 {
     unsigned int platform_id=0, device_id=0;
@@ -63,14 +60,15 @@ void gpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offlo
     vecadd_kernel.setArg( 4, COL);
 
 
-    // Execute the kernel
+
+    //number of iterations to be offloaded to GPU
     cl::NDRange global( (int)(ROW  * offload));
- //   std::cout<<(int)(ROW  * offload)<<" OFFLOAD\n";
-//        cl::NDRange local( 256 );
+
+    //create event for profiling
     cl::Event evt;
+    // Execute the kernel
     queue.enqueueNDRangeKernel(vecadd_kernel, cl::NullRange, global,cl::NullRange,NULL,&evt);
 
-    //queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(512), cl::NullRange, NULL, &evt);
     evt.wait();
     long elapsed = evt.getProfilingInfo<CL_PROFILING_COMMAND_END>() - evt.getProfilingInfo<CL_PROFILING_COMMAND_START>();
 
@@ -91,7 +89,6 @@ void rowwise( float* matrixA,   float* vectorB,  float* resultVector, int row,in
 {
     int index2 = (index * col);
     float value = 0;
- //   std::cout<<" rowwise async"<<std::endl<<col<<" COL "<< row<<" ROW";
 
     for(int j = 0;j < col;j++)
     {
@@ -101,33 +98,11 @@ void rowwise( float* matrixA,   float* vectorB,  float* resultVector, int row,in
             value += (matrixA[index2 + k] * vectorB[(k * row) + j]);
         }
         resultVector[index2 + j] = value;
-       // std::cout<<" ["<<index2 + j<<"]: "<<CMATCPU[index2 + j]<<"\n";
-    }
-}
-
-void rowwise(mat_data_t *mat)
-{
-    int index2 = (mat->index * mat->col);
-    float value = 0;
-  //  std::cout<<" rowwise async"<<std::endl<<col<<" COL "<< row<<" ROW";
-
-    for(int j = 0;j < mat->row;j++)
-    {
-        value = 0;
-        for (int k = 0; k < mat->row;k++)
-        {
-            value += (mat->A[index2 + k] * mat->B[(k * mat->row) + j]);
-        }
-        mat->C[index2 + j] = value;
-        // std::cout<<" ["<<index2 + j<<"]: "<<CMATCPU[index2 + j]<<"\n";
     }
 }
 
 void cpukernel(float *AMAT, float *BMAT, float *CMAT,int ROW,int COL,float offload)
 {
-//    std::cout<<"In CPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
-  //  std::cout<<"out add: "<<AMAT<<std::endl;
-   // int rowi = ;
 
     for (int i = (int)(ROW * offload); i < ROW;i++)
     {
@@ -184,30 +159,31 @@ int main( int argc, char** argv ) {
     {
         alpha = (float)atoi(argv[1])/10.0;
     }
- //   printf("alpha: %f\n",alpha);
     float* AMAT = NULL;
     float* BMAT = NULL;
-
+    float* CMATCPU = NULL;
     float* CMATGPU = NULL;
+
     try{
+        //memory allocation to matrix
         AMAT = new float[ROW*COL];
         BMAT = new float[ROW*COL];
         CMATCPU = new float[ROW*COL];
         CMATGPU = new float[ROW*COL];
+
         // initialize the matrices
         std::fill(AMAT, AMAT + ROW*COL, 1);
         std::fill(BMAT, BMAT + ROW*COL, 1);
         cotton::init_runtime();
         cotton::start_finish();
 
-//
+        //proxy thread to offload task to GPU
         cotton::async([=]() {
-    //        std::cout<<"BeforeIN GPU async"<<std::endl<<COL<<" COL "<< ROW<<" ROW";
             gpukernel(AMAT, BMAT, CMATGPU, ROW, COL, alpha);
         });
 
         long start = get_usecs();
-        cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha);
+        cpukernel(AMAT, BMAT, CMATCPU, ROW, COL, alpha); //Executing CPU part tith remaining iterations
         cotton::end_finish();
         long end = get_usecs();
         float dur = ((double)(end-start))/1000000;
@@ -219,34 +195,16 @@ int main( int argc, char** argv ) {
         for (int i=0; i<ROW*COL; i++) {
 
             if (i / COL < (int)(alpha * ROW ) ) {
-         //       printf(" G [%f] ",CMATGPU[i]);
                 if(CMATGPU[i] != ROW)
                  result = false;
-                //break;
-
             }
             if (i / COL > (int)(alpha * ROW) ) {
-           //     printf(" C : [%f] ", CMATCPU[i]);
          if (CMATCPU[i] != ROW)
                     result = false;
             }
-           /* if(i % ROW == 0)
-                {
-                    printf("\n");
-                }
-                */
+
         }
-   /*     std::cout<<"\n";
-        for(int i = 0; i < ROW*COL;i++)
-        {
-            std::cout<<" "<<CMATCPU[i];
-        }
-        std::cout<<"\n";
-        for(int i = 0; i < ROW*COL;i++)
-        {
-            std::cout<<" "<<CMATGPU[i];
-        }
-        */
+
         if (result)
             std::cout<< "Success!\n";
         else
@@ -255,14 +213,12 @@ int main( int argc, char** argv ) {
     }
     catch(cl::Error err) {
         std::cout << "Error: " << err.what() << "(" << err.err() << ")" << std::endl;
-//        return( EXIT_FAILURE );
-
-
+        return( EXIT_FAILURE );
     }
-  //  mydelete(AMAT);
-  //  mydelete(BMAT);
-  //  mydelete(CMATCPU);
-  //  mydelete(CMATGPU);
+    mydelete(AMAT);
+    mydelete(BMAT);
+    mydelete(CMATCPU);
+    mydelete(CMATGPU);
     std::cout << "Done.\n";
     cotton::finalize_runtime();
     return( EXIT_SUCCESS );

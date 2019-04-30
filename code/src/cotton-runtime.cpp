@@ -235,18 +235,9 @@ namespace cotton{
         lock_finish();
         finish_counter++;//concurrent access
         unlock_finish();
-        //task size retrieval
-        //int task_size = sizeof(lambda);
-      //  int task_size = sizeof(std::function<void()>);
-        //copy	task	on	heap
 
-        //std::function<void()> *copy_lambda =
-        void *p = (void *)new std::function<void()>(lambda);;
+        void *p = (void *)new std::function<void()>(lambda);
 
-        //void *p =(void*)new std::function<void()>;
-        //void *p = (void*)malloc(sizeof( std::function<void()>));
-      //  memcpy(p,&lambda,task_size);
-        //thread-safe	push_task_to_runtime
         //index of shelf
         push_task_to_runtime(p,index);
         return;
@@ -382,8 +373,6 @@ namespace cotton{
     {
         (*(std::function<void()> *)task) ();
 
-        //   *((sigrout_t*) task) ();
-        //  task();
     }
 
     int thread_pool_size()
