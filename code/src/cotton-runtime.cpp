@@ -20,20 +20,12 @@ namespace cotton{
 
     typedef struct _thread_deq_
     {
-       volatile int front;
+        int front;
        void **deq;
-       volatile int rear;
+        int rear;
     }thread_deq_t;
 
 
-    /*
-       init_runtime();
-       start_finish();
-       async (S1);
-       S2;
-       end_finish();
-       finalize_runtime();
-     */
 
     pthread_t *threads; //number of threads
     pthread_mutex_t mutexfinish,*mutexlocks; //locks for each task pool bucket
@@ -236,7 +228,7 @@ namespace cotton{
         finish_counter++;//concurrent access
         unlock_finish();
 
-        void *p = (void *)new std::function<void()>(lambda);
+        void *p = (void *)malloc(sizeof(lambda));
 
         //index of shelf
         push_task_to_runtime(p,index);
