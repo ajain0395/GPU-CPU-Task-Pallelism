@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -Wpedantic -std=c++1y  -rdynamic CMakeFiles/clinfo.dir/chlorine/clinfo/clinfo.cpp.o  -o clinfo -lOpenCL 

@@ -1,0 +1,21 @@
+# Compiled Makefile Outputs
+build
+builds
+*.dSYM
+*.gcda
+*.gcno
+*.gcov
+
+# Compiled Object Files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic Libraries
+*.so
+*.dylib
+
+# Compiled Static Libraries
+*.lai
+*.la
+*.a

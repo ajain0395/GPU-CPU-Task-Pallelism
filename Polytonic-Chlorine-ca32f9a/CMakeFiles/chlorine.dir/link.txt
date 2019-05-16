@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -Wpedantic -std=c++1y  -rdynamic CMakeFiles/chlorine.dir/chlorine/src/chlorine.cpp.o  -o chlorine -lOpenCL 

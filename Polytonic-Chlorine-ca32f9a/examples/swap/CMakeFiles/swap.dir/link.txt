@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -Wpedantic -std=c++1y -Wall -Wextra -Wpedantic -std=c++1y  -rdynamic CMakeFiles/swap.dir/swap.cpp.o  -o swap -lOpenCL 

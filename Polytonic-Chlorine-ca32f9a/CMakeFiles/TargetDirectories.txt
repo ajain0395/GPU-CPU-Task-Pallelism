@@ -1,0 +1,13 @@
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/rebuild_cache.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/chlorine.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/tests.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/check.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/doc.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/clinfo.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/CMakeFiles/edit_cache.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/swap/CMakeFiles/rebuild_cache.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/swap/CMakeFiles/swap.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/swap/CMakeFiles/edit_cache.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/mandelbrot/CMakeFiles/rebuild_cache.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/mandelbrot/CMakeFiles/mandelbrot.dir
+/home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples/mandelbrot/CMakeFiles/edit_cache.dir

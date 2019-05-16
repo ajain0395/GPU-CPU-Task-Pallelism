@@ -1,0 +1,18 @@
+PROJECT_NAME = Chlorine
+PROJECT_BRIEF = Dead Simple OpenCL
+USE_MDFILE_AS_MAINPAGE = readme.md
+
+JAVADOC_AUTOBRIEF   = YES
+MARKDOWN_SUPPORT    = YES
+AUTOLINK_SUPPORT    = YES
+BUILTIN_STL_SUPPORT = YES
+
+RECURSIVE = YES
+INPUT = /home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a
+EXCLUDE = /home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/chlorine/include/cl.hpp \
+          /home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/examples \
+          /home/ashish/repos/fpp-project/Polytonic-Chlorine-ca32f9a/tests
+
+SOURCE_BROWSER = YES
+INLINE_SOURCES = YES
+GENERATE_LATEX = NO
